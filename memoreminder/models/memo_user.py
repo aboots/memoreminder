@@ -7,6 +7,7 @@ from .validators import mobile_number_validator
 class MemoUser(TimeModel):
     username = models.CharField(
         max_length=80,
+        unique=True,
         verbose_name='یوزرنیم'
     )
 
@@ -40,6 +41,9 @@ class MemoUser(TimeModel):
         blank=True,
         verbose_name='تاریخ تولد'
     )
+
+    def __str__(self):
+        return self.username
 
     class Meta:
         verbose_name = 'کاربر خاطره نگار'

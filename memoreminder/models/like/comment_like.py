@@ -10,6 +10,9 @@ class CommentLike(AbstractLike):
         verbose_name='کامنت'
     )
 
+    def __str__(self):
+        return f'{self.id}-{self.memo_user}'
+
     class Meta:
         verbose_name = 'لایک برای کامنت'
         verbose_name_plural = "لایک های کامنت ها"
