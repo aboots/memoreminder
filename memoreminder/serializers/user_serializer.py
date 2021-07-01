@@ -16,10 +16,11 @@ class MemoUserSerializer(DynamicFieldModelSerializer):
             'email',
             'phone_number',
             'birthday_date',
+            'created',
             'token',
         )
 
-        read_only_fields = ('token', 'id')
+        read_only_fields = ('token', 'id', 'created')
 
     @staticmethod
     def validate_password(password):

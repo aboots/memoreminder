@@ -4,3 +4,4 @@ from .comment import Comment
 from .like import *
 from .tag import Tag
 from .post import Post
+from .friend_request import FriendRequest
