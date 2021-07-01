@@ -56,9 +56,11 @@ class MemoUser(TimeModel):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.token = str(uuid4())
+            self.set_token()
         super().save(*args, **kwargs)
 
+    def set_token(self):
+        self.token = str(uuid4())
 
     class Meta:
         verbose_name = 'کاربر خاطره نگار'

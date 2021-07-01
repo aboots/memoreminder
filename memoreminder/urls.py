@@ -9,6 +9,7 @@ router.register('memo-user', views_api.MemoUserModelViewSet)
 
 
 urlpatterns = [
+    path('login/', views_api.LoginView.as_view()),
 ]
 
 urlpatterns += router.urls
