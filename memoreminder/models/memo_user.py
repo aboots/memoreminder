@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.db import models
 
 from .time_model import TimeModel
@@ -42,8 +44,21 @@ class MemoUser(TimeModel):
         verbose_name='تاریخ تولد'
     )
 
+    token = models.CharField(
+        null=True,
+        blank=True,
+        max_length=40,
+        verbose_name='توکن'
+    )
+
     def __str__(self):
         return self.username
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.token = str(uuid4())
+        super().save(*args, **kwargs)
+
 
     class Meta:
         verbose_name = 'کاربر خاطره نگار'

@@ -1,0 +1,1 @@
+from .memo_user_api_view import MemoUserModelViewSet
