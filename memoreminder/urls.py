@@ -6,6 +6,7 @@ from memoreminder import views_api
 router = DefaultRouter()
 
 router.register('memo-user', views_api.MemoUserModelViewSet)
+router.register('tag', views_api.TagModelViewSet)
 
 
 urlpatterns = [
