@@ -2,3 +2,4 @@ from .dynamic_field_model_serializer import DynamicFieldModelSerializer
 from .base_token_serializer import BaseTokenSerializer
 from .tag_serializer import TagSerializer
 from .user_serializer import MemoUserSerializer
+from .friend_request_serializer import FriendRequestSerializer

@@ -29,12 +29,19 @@ class FriendRequest(TimeModel):
 
     status = models.CharField(
         choices=STATUS_CH,
+        default=STATUS_PENDING,
         max_length=50,
         verbose_name='وضعیت'
     )
 
     def __str__(self):
         return f'{self.from_user}-to-{self.to_user}'
+
+    def save(self, *args, **kwargs):
+        old_obj = FriendRequest.objects.filter(pk=self.pk).first()
+        if old_obj and old_obj.status == self.STATUS_PENDING and self.status == self.STATUS_ACCEPTED:
+            self.from_user.friends.add(self.to_user)
+        return super(FriendRequest, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'درخواست دوستی'

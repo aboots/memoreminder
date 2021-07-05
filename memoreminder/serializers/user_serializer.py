@@ -16,6 +16,7 @@ class MemoUserSerializer(DynamicFieldModelSerializer):
             'email',
             'phone_number',
             'birthday_date',
+            'friends',
             'created',
             'token',
         )

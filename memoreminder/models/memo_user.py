@@ -51,6 +51,12 @@ class MemoUser(TimeModel):
         verbose_name='توکن'
     )
 
+    friends = models.ManyToManyField(
+        to='self',
+        related_name='friends',
+        verbose_name='دوست ها'
+    )
+
     def __str__(self):
         return self.username
 

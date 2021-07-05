@@ -7,6 +7,7 @@ router = DefaultRouter()
 
 router.register('memo-user', views_api.MemoUserModelViewSet)
 router.register('tag', views_api.TagModelViewSet)
+router.register('friend-request', views_api.FriendRequestModelViewSet)
 
 
 urlpatterns = [
