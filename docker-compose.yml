@@ -14,25 +14,12 @@ services:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
-#    volumes:
-#      - /mnt/disk/core/postgres:/var/lib/postgresql/data
-#      - ./core_latest_db:/docker-entrypoint-initdb.d/data.sql
-  rabbitmq:
-    image: rabbitmq:3.7-management
-    container_name: rabbitmq
-    hostname: rabbitmq
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
     ports:
-      - "15672"
-      - "5672"
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
-  redis:
-    image: 'bitnami/redis:latest'
-    hostname: redis
-    container_name: redis
-    ports:
-      - 6379:6379
-    restart: always
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
+      - "8000:8000"
+    depends_on:
+      - db
