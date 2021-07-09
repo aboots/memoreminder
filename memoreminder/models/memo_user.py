@@ -54,6 +54,8 @@ class MemoUser(TimeModel):
     friends = models.ManyToManyField(
         to='self',
         related_name='friends',
+        null=True,
+        blank=True,
         verbose_name='دوست ها'
     )
 
