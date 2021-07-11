@@ -12,6 +12,7 @@ router.register('friend-request', views_api.FriendRequestModelViewSet)
 
 urlpatterns = [
     path('login/', views_api.LoginView.as_view()),
+    path('logout/', views_api.LogoutView.as_view()),
 ]
 
 urlpatterns += router.urls
