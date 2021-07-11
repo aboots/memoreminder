@@ -7,5 +7,6 @@ class BaseTokenSerializer(DynamicFieldModelSerializer):
     def to_internal_value(self, data):
         if hasattr(data, '_mutable') and not getattr(data, '_mutable'):
             setattr(data, '_mutable', True)
-        data[self.memo_user_field_name] = self.context['user']
+        if 'user' in self.context:
+            data[self.memo_user_field_name] = self.context['user']
         return super(BaseTokenSerializer, self).to_internal_value(data)

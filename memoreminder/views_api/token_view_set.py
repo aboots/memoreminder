@@ -19,7 +19,8 @@ class TokenModelViewSet(ModelViewSet):
         user = MemoUser.objects.filter(token=token).first()
         if not user:
             raise PermissionDenied('user token not found')
-        context['user'] = user.pk
+        if self.action == 'create':
+            context['user'] = user.pk
         return context
 
 
