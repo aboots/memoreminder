@@ -6,3 +6,4 @@ from .friend_request_view_set import FriendRequestModelViewSet
 from .logout_view import LogoutView
 from .post_file_view import PostFileModelViewSet
 from .like_view import *
+from .comment_view import CommentModelViewSet

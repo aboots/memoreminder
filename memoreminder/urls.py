@@ -9,9 +9,10 @@ router.register('memo-user', views_api.MemoUserModelViewSet)
 router.register('tag', views_api.TagModelViewSet)
 router.register('friend-request', views_api.FriendRequestModelViewSet)
 router.register('post', views_api.PostModelViewSet)
-router.register('post_file', views_api.PostFileModelViewSet)
-router.register('post_like', views_api.PostLikeModelViewSet)
-
+router.register('post-file', views_api.PostFileModelViewSet)
+router.register('post-like', views_api.PostLikeModelViewSet)
+router.register('comment-like', views_api.CommentLikeModelViewSet)
+router.register('comment', views_api.CommentModelViewSet)
 
 urlpatterns = [
     path('login/', views_api.LoginView.as_view()),

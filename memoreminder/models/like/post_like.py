@@ -16,3 +16,4 @@ class PostLike(AbstractLike):
     class Meta:
         verbose_name = 'لایک برای پست'
         verbose_name_plural = "لایک های پست ها"
+        unique_together = ('post', 'memo_user')

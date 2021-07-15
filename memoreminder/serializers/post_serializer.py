@@ -4,13 +4,15 @@ from rest_framework import serializers
 from memoreminder.models import Post
 from memoreminder.serializers import MinimalPostLikeSerializer
 from memoreminder.serializers.base_token_serializer import BaseTokenSerializer
+from memoreminder.serializers.comment_serializer import MinimalCommentSerializer
 from memoreminder.serializers.tag_serializer import MinimalTagSerializer
 
 
 class PostSerializer(BaseTokenSerializer):
     memo_user_field_name = 'creator_user'
     post_files = serializers.SerializerMethodField()
-    likes = MinimalPostLikeSerializer(many=True,source='postlike_set')
+    likes = MinimalPostLikeSerializer(many=True, source='postlike_set')
+    comments = MinimalCommentSerializer(many=True, source='comment_set')
     tags = MinimalTagSerializer(many=True)
 
     def get_post_files(self, obj: Post):
@@ -33,8 +35,9 @@ class PostSerializer(BaseTokenSerializer):
             'tags',
             'post_files',
             'likes',
+            'comments',
             'created',
             'modified',
         )
 
-        read_only_fields = ('id', 'created', 'post_files','likes')
+        read_only_fields = ('id', 'created', 'post_files', 'likes', 'comments')

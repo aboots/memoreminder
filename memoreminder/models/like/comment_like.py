@@ -16,3 +16,5 @@ class CommentLike(AbstractLike):
     class Meta:
         verbose_name = 'لایک برای کامنت'
         verbose_name_plural = "لایک های کامنت ها"
+        unique_together = ('comment', 'memo_user')
+
