@@ -5,3 +5,4 @@ from .post import PostAdmin
 from .post_like import PostLikeAdmin
 from .tag import TagAdmin
 from .friend_requests import FriendRequestAdmin
+from .post_file import PostFileAdmin

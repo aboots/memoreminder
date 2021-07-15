@@ -13,15 +13,28 @@ class TokenModelViewSet(ModelViewSet):
 
     def get_serializer_context(self):
         context = super(TokenModelViewSet, self).get_serializer_context()
+        user = self.get_user()
+        if self.action == 'create':
+            context['user'] = user.pk
+        return context
+
+    def get_user(self):
         token = self.request.query_params.get('token')
         if not token:
             raise PermissionDenied('user token missed')
         user = MemoUser.objects.filter(token=token).first()
         if not user:
             raise PermissionDenied('user token not found')
-        if self.action == 'create':
-            context['user'] = user.pk
-        return context
+        return user
+
+    def get_queryset(self):
+        query = super(TokenModelViewSet, self).get_queryset()
+        if getattr(self, 'do_not_filter', False):
+            return query
+        field = self.get_serializer().memo_user_field_name
+        user = self.get_user()
+        dic = {field: user}
+        return query.filter(**dic)
 
 
 class TokenBaseApiView(APIView):

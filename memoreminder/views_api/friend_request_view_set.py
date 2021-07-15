@@ -8,6 +8,7 @@ from memoreminder.views_api.token_view_set import TokenModelViewSet
 class FriendRequestModelViewSet(TokenModelViewSet):
     queryset = FriendRequest.objects.all()
     serializer_class = FriendRequestSerializer
+    do_not_filter = True
 
     def get_queryset(self):
         token = self.request.query_params.get('token')

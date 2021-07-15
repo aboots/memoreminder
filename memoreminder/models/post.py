@@ -26,11 +26,15 @@ class Post(TimeModel):
     tagged_people = models.ManyToManyField(
         to='memoreminder.MemoUser',
         related_name='post_where_tagged',
+        null=True,
+        blank=True,
         verbose_name='افراد تگ شده در خاطره'
     )
 
     tags = models.ManyToManyField(
         to='memoreminder.Tag',
+        null=True,
+        blank=True,
         verbose_name='تگ ها'
     )
 

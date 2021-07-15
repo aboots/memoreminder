@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'memo_reminder.urls'
@@ -118,6 +119,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'fa-IR'
 TIME_ZONE = 'Asia/Tehran'
+
+HOST_URL = 'http://memoreminder.ir'
+MEDIA_URL = config('MEDIA_URL', default=HOST_URL + '/static/media/upload/')
+MEDIA_ROOT = config('MEDIA_ROOT', default=os.path.join(BASE_DIR, 'static/media/'))
 
 USE_I18N = True
 
