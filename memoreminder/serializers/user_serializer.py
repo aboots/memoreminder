@@ -42,6 +42,7 @@ class ListMemoUserSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'email',
+            'friends',
             'phone_number',
         )
 

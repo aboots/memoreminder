@@ -120,9 +120,12 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'fa-IR'
 TIME_ZONE = 'Asia/Tehran'
 
-HOST_URL = 'http://memoreminder.ir'
-MEDIA_URL = config('MEDIA_URL', default=HOST_URL + '/static/media/upload/')
-MEDIA_ROOT = config('MEDIA_ROOT', default=os.path.join(BASE_DIR, 'static/media/'))
+# HOST_URL = 'http://memoreminder.ir'
+# MEDIA_URL = config('MEDIA_URL', default=HOST_URL + '/static/media/upload/')
+# MEDIA_ROOT = config('MEDIA_ROOT', default=os.path.join(BASE_DIR, 'static/media/'))
+
+MEDIA_URL = '/files/'
+MEDIA_ROOT = os.path.dirname(os.path.join(BASE_DIR, 'files/'))
 
 USE_I18N = True
 
@@ -135,6 +138,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+DOMAIN = config('DOMAIN',default='http://memoreminder.ir')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -143,6 +147,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 20 ,
+    'PAGE_SIZE': 20,
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }

@@ -3,3 +3,4 @@ from .base_token_serializer import BaseTokenSerializer
 from .tag_serializer import TagSerializer
 from .user_serializer import MemoUserSerializer
 from .friend_request_serializer import FriendRequestSerializer
+from .post_file_serializer import PostFileSerializer

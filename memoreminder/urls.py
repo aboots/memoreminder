@@ -9,6 +9,7 @@ router.register('memo-user', views_api.MemoUserModelViewSet)
 router.register('tag', views_api.TagModelViewSet)
 router.register('friend-request', views_api.FriendRequestModelViewSet)
 router.register('post', views_api.PostModelViewSet)
+router.register('post_file', views_api.PostFileModelViewSet)
 
 
 urlpatterns = [
