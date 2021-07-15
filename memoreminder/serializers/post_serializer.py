@@ -2,6 +2,7 @@ from django.conf import settings
 from rest_framework import serializers
 
 from memoreminder.models import Post
+from memoreminder.serializers import MinimalPostLikeSerializer
 from memoreminder.serializers.base_token_serializer import BaseTokenSerializer
 from memoreminder.serializers.tag_serializer import MinimalTagSerializer
 
@@ -9,6 +10,7 @@ from memoreminder.serializers.tag_serializer import MinimalTagSerializer
 class PostSerializer(BaseTokenSerializer):
     memo_user_field_name = 'creator_user'
     post_files = serializers.SerializerMethodField()
+    likes = MinimalPostLikeSerializer(many=True,source='postlike_set')
     tags = MinimalTagSerializer(many=True)
 
     def get_post_files(self, obj: Post):
@@ -30,8 +32,9 @@ class PostSerializer(BaseTokenSerializer):
             'tagged_people',
             'tags',
             'post_files',
+            'likes',
             'created',
             'modified',
         )
 
-        read_only_fields = ('id', 'created', 'post_files')
+        read_only_fields = ('id', 'created', 'post_files','likes')
