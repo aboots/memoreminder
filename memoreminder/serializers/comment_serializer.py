@@ -7,7 +7,7 @@ from memoreminder.serializers.like_serializer import MinimalCommentLikeSerialize
 
 class CommentSerializer(BaseTokenSerializer):
     memo_user_field_name = 'memo_user'
-    likes = MinimalCommentLikeSerializer(many=True, source='commentlike_set')
+    likes = MinimalCommentLikeSerializer(many=True, source='commentlike_set',required=False,read_only=True)
 
     class Meta:
         model = Comment
