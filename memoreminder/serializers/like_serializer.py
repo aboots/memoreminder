@@ -20,6 +20,16 @@ class PostLikeSerializer(BaseTokenSerializer):
 
 
 class MinimalPostLikeSerializer(serializers.ModelSerializer):
+    def to_representation(self, instance):
+        data = super(MinimalPostLikeSerializer, self).to_representation(instance)
+        user = instance.memo_user
+        data['memo_user'] = {'id': user.pk,
+                             'username': user.username,
+                             'first_name': user.first_name,
+                             'last_name': user.last_name
+                             }
+        return data
+
     class Meta:
         model = PostLike
         fields = ('id', 'memo_user',)
@@ -42,6 +52,17 @@ class CommentLikeSerializer(BaseTokenSerializer):
 
 
 class MinimalCommentLikeSerializer(serializers.ModelSerializer):
+
+    def to_representation(self, instance):
+        data = super(MinimalCommentLikeSerializer, self).to_representation(instance)
+        user = instance.memo_user
+        data['memo_user'] = {'id': user.pk,
+                             'username': user.username,
+                             'first_name': user.first_name,
+                             'last_name': user.last_name
+                             }
+        return data
+
     class Meta:
         model = CommentLike
         fields = ('id', 'memo_user',)

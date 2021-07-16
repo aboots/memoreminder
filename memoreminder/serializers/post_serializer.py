@@ -1,7 +1,7 @@
 from django.conf import settings
 from rest_framework import serializers
 
-from memoreminder.models import Post, Tag
+from memoreminder.models import Post
 from memoreminder.serializers import MinimalPostLikeSerializer
 from memoreminder.serializers.base_token_serializer import BaseTokenSerializer
 from memoreminder.serializers.comment_serializer import MinimalCommentSerializer
@@ -13,6 +13,7 @@ class PostSerializer(BaseTokenSerializer):
     post_files = serializers.SerializerMethodField()
     likes = MinimalPostLikeSerializer(many=True, source='postlike_set', required=False)
     comments = MinimalCommentSerializer(many=True, source='comment_set', required=False)
+
     # tags = MinimalTagSerializer(many=True, required=False)
 
     def get_post_files(self, obj: Post):
@@ -30,6 +31,12 @@ class PostSerializer(BaseTokenSerializer):
         for tag in instance.tags.all():
             ls.append(MinimalTagSerializer(instance=tag).data)
         data['tags'] = ls
+        user = instance.creator_user
+        data['creator_user'] = {'id': user.pk,
+                                'username': user.username,
+                                'first_name': user.first_name,
+                                'last_name': user.last_name
+                                }
         return data
 
     class Meta:
