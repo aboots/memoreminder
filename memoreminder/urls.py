@@ -13,6 +13,8 @@ router.register('post-file', views_api.PostFileModelViewSet)
 router.register('post-like', views_api.PostLikeModelViewSet)
 router.register('comment-like', views_api.CommentLikeModelViewSet)
 router.register('comment', views_api.CommentModelViewSet)
+router.register('top-post', views_api.TopPostsModelViewSet)
+
 
 urlpatterns = [
     path('login/', views_api.LoginView.as_view()),
