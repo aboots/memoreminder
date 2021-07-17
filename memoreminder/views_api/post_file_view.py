@@ -7,5 +7,12 @@ class PostFileModelViewSet(TokenModelViewSet):
     queryset = PostFile.objects.all()
     serializer_class = PostFileSerializer
 
+    def get_serializer_context(self):
+        context = super(PostFileModelViewSet, self).get_serializer_context()
+        post = self.request.query_params.get('post', None)
+        if post:
+            context['post'] = post
+        return context
+
     def pre_save(self, obj):
         obj.file = self.request.FILES.get('file')
