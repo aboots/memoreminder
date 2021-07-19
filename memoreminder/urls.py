@@ -14,6 +14,7 @@ router.register('post-like', views_api.PostLikeModelViewSet)
 router.register('comment-like', views_api.CommentLikeModelViewSet)
 router.register('comment', views_api.CommentModelViewSet)
 router.register('top-post', views_api.TopPostsModelViewSet)
+router.register('tagged-post', views_api.TaggedPostModelViewSet)
 
 
 urlpatterns = [

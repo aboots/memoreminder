@@ -1,8 +1,8 @@
 from django.db.models import Count
-from rest_framework import mixins, viewsets
+from rest_framework import viewsets
+from rest_framework.exceptions import PermissionDenied
 
-from memoreminder.models import Tag, Post
-from memoreminder.serializers import TagSerializer
+from memoreminder.models import Post, MemoUser
 from memoreminder.serializers.post_serializer import PostSerializer
 from memoreminder.views_api.token_view_set import TokenModelViewSet
 
@@ -24,3 +24,24 @@ class PostModelViewSet(TokenModelViewSet):
 class TopPostsModelViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Post.objects.annotate(num_likes=Count('postlike')).order_by('-num_likes')[:10]
     serializer_class = PostSerializer
+
+
+class TaggedPostModelViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    do_not_filter = True
+
+    def get_queryset(self):
+        user = self.get_user()
+        queryset = super(TaggedPostModelViewSet, self).get_queryset()
+        ls = [user.pk,]
+        return queryset.filter(tagged_people__in=ls)
+
+    def get_user(self):
+        token = self.request.query_params.get('token')
+        if not token:
+            raise PermissionDenied('user token missed')
+        user = MemoUser.objects.filter(token=token).first()
+        if not user:
+            raise PermissionDenied('user token not found')
+        return user
