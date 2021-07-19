@@ -37,6 +37,15 @@ class PostSerializer(BaseTokenSerializer):
                                 'first_name': user.first_name,
                                 'last_name': user.last_name
                                 }
+        ls2 = []
+        for user in instance.tagged_people.all():
+            ls2.append({
+                'id': user.pk,
+                'username': user.username,
+                'first_name': user.first_name,
+                'last_name': user.last_name
+            })
+        data['tagged_people'] = ls2
         return data
 
     class Meta:
