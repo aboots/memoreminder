@@ -22,7 +22,7 @@ class PostModelViewSet(TokenModelViewSet):
 
 
 class TopPostsModelViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Post.objects.annotate(num_likes=Count('postlike')).order_by('-num_likes')[:10]
+    queryset = Post.objects.filter(mode=Post.MODE_PUBLIC).annotate(num_likes=Count('postlike')).order_by('-num_likes')[:10]
     serializer_class = PostSerializer
 
 

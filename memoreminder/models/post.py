@@ -4,6 +4,14 @@ from .time_model import TimeModel
 
 
 class Post(TimeModel):
+    MODE_PUBLIC = 'public'
+    MODE_PRIVATE = 'private'
+
+    MODES = (
+        (MODE_PRIVATE, 'خصوصی'),
+        (MODE_PUBLIC, 'عمومی'),
+    )
+
     creator_user = models.ForeignKey(
         'memoreminder.MemoUser',
         on_delete=models.CASCADE,
@@ -36,6 +44,25 @@ class Post(TimeModel):
         null=True,
         blank=True,
         verbose_name='تگ ها'
+    )
+
+    lat = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name='عرض جغرافیایی'
+    )
+
+    lon = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name='طول جغرافیایی'
+    )
+
+    mode = models.CharField(
+        max_length=50,
+        default=MODE_PUBLIC,
+        choices=MODES,
+        verbose_name='حالت'
     )
 
     def __str__(self):
