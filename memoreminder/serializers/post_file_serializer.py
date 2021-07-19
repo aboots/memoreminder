@@ -26,6 +26,7 @@ class PostFileSerializer(BaseTokenSerializer):
             'id',
             'post',
             'file',
+            'file_raw',
             'created',
         )
 

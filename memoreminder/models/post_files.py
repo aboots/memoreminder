@@ -18,6 +18,13 @@ class PostFile(TimeModel):
         verbose_name='خاطره'
     )
 
+    file_raw = models.CharField(
+        max_length=300,
+        null=True,
+        blank=True,
+        verbose_name='لینک فایل'
+    )
+
     def __str__(self):
         return f'{self.id}-{self.post.pk}-{self.post.creator_user.username}'
 

@@ -17,7 +17,14 @@ class PostSerializer(BaseTokenSerializer):
     # tags = MinimalTagSerializer(many=True, required=False)
 
     def get_post_files(self, obj: Post):
-        return [settings.DOMAIN + file_post.file.url for file_post in obj.postfile_set.all()]
+        ls = []
+        for file_post in obj.postfile_set.all():
+            if file_post.file:
+                ls.append(settings.DOMAIN + file_post.file.url)
+            elif file_post.file_raw:
+                ls.append(file_post.file_raw)
+        return ls
+        # return [settings.DOMAIN + file_post.file.url for file_post in obj.postfile_set.all()]
 
     def validate_tags(self, tags):
         for tag in tags:

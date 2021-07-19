@@ -15,4 +15,5 @@ class PostFileModelViewSet(TokenModelViewSet):
         return context
 
     def pre_save(self, obj):
-        obj.file = self.request.FILES.get('file')
+        if self.request.FILES.get('file'):
+            obj.file = self.request.FILES.get('file')
