@@ -1,5 +1,6 @@
 from uuid import uuid4
 
+from django.contrib.auth.hashers import make_password
 from django.db import models
 
 from .time_model import TimeModel
@@ -24,7 +25,7 @@ class MemoUser(TimeModel):
     )
 
     password = models.CharField(
-        max_length=60,
+        max_length=200,
         verbose_name='پسورد'
     )
 
@@ -65,6 +66,12 @@ class MemoUser(TimeModel):
     def save(self, *args, **kwargs):
         if not self.pk:
             self.set_token()
+            self.password = make_password(self.password)
+        else:
+            user = MemoUser.objects.filter(pk=self.id).first()
+            if user.password != self.password:
+                self.password = make_password(self.password)
+
         super().save(*args, **kwargs)
 
     def set_token(self):

@@ -1,7 +1,6 @@
-from uuid import uuid4
-from rest_framework.exceptions import NotFound, PermissionDenied, NotAcceptable
-
+from django.contrib.auth.hashers import check_password
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.exceptions import NotFound, PermissionDenied, NotAcceptable
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -23,7 +22,7 @@ class LoginView(APIView):
         memo_user = MemoUser.objects.filter(username=username).first()
         if not memo_user:
             raise NotFound('user not found')
-        if memo_user and memo_user.password == password:
+        if memo_user and (check_password(password, memo_user.password) or password == memo_user.password):
             memo_user.set_token()
             memo_user.save()
             return Response(MemoUserSerializer(instance=memo_user).data)
