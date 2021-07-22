@@ -2,7 +2,7 @@ from rest_framework.exceptions import PermissionDenied
 
 from memoreminder.models import FriendRequest, MemoUser
 from memoreminder.serializers import FriendRequestSerializer
-from memoreminder.views_api.token_view_set import TokenModelViewSet
+from memoreminder.views_api.token_view_set import TokenModelViewSet, MEMOUSER_KEY
 
 
 class FriendRequestModelViewSet(TokenModelViewSet):
@@ -11,7 +11,7 @@ class FriendRequestModelViewSet(TokenModelViewSet):
     do_not_filter = True
 
     def get_queryset(self):
-        token = self.request.query_params.get('token')
+        token = self.request.headers[MEMOUSER_KEY]
         if not token:
             raise PermissionDenied('user token missed')
         user = MemoUser.objects.filter(token=token).first()

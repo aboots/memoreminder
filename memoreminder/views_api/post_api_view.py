@@ -4,7 +4,7 @@ from rest_framework.exceptions import PermissionDenied
 
 from memoreminder.models import Post, MemoUser
 from memoreminder.serializers.post_serializer import PostSerializer
-from memoreminder.views_api.token_view_set import TokenModelViewSet
+from memoreminder.views_api.token_view_set import TokenModelViewSet, MEMOUSER_KEY
 
 
 class PostModelViewSet(TokenModelViewSet):
@@ -38,7 +38,7 @@ class TaggedPostModelViewSet(viewsets.ReadOnlyModelViewSet):
         return queryset.filter(tagged_people__in=ls)
 
     def get_user(self):
-        token = self.request.query_params.get('token')
+        token = self.request.headers[MEMOUSER_KEY]
         if not token:
             raise PermissionDenied('user token missed')
         user = MemoUser.objects.filter(token=token).first()
