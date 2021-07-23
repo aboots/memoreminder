@@ -20,6 +20,12 @@ class MemoUserSerializer(DynamicFieldModelSerializer):
     def get_comments_received_count(self, obj: MemoUser):
         return Comment.objects.filter(post__creator_user=obj).count()
 
+    def to_representation(self, instance):
+        data = super(MemoUserSerializer, self).to_representation(instance)
+        if 'password' in data:
+            data.pop('password')
+        return data
+
     class Meta:
         model = MemoUser
         fields = (
@@ -33,6 +39,7 @@ class MemoUserSerializer(DynamicFieldModelSerializer):
             'likes_received_count',
             'posts_count',
             'comments_received_count',
+            'password',
             'friends',
             'created',
             'token',
