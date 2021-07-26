@@ -27,7 +27,7 @@ class TokenModelViewSet(ModelViewSet):
     def get_serializer_context(self):
         context = super(TokenModelViewSet, self).get_serializer_context()
         user = self.get_user()
-        if self.action == 'create':
+        if self.action == 'create' or self.action == 'partial_update':
             context['user'] = user.pk
         return context
 
